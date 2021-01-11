@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 public class Database {
   public static Connection getConnection() throws Exception{
         // TODO code application logic here
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("org.gjt.mm.mysql.Driver");
         Connection cn = (Connection)
                 DriverManager.getConnection("jdbc:mysql://localhost:3306/dailysales","root","");
         

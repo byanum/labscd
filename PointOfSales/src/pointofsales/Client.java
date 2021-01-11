@@ -14,6 +14,6 @@ public class Client {
     public static void main(String [] args){
         Login objectLogin = new Login();
         objectLogin.setVisible(true);
-        System.out.println("testing");
+        //System.out.printlln("testing for gitHub");
     }
             }

@@ -2,7 +2,7 @@ package pointofsales;
 
 
 import pointofsales.Database;
-import com.mysql.jdbc.Statement;
+//import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class POS extends javax.swing.JFrame {
     
- 
+   Discount dObj;
+
    int purchase [] = new int[3];
    int Quantity [] = new int [9];
    int drink []= new int[1];
@@ -38,6 +39,7 @@ public class POS extends javax.swing.JFrame {
      */
     public POS() {
         initComponents();
+         dObj = new Discount(this);
        
     }
 
@@ -63,7 +65,6 @@ public class POS extends javax.swing.JFrame {
         jVanilla = new javax.swing.JTextField();
         jJava = new javax.swing.JTextField();
         jStrawberry = new javax.swing.JTextField();
-        jChocolate = new javax.swing.JTextField();
         jCheckBoxChocolate = new javax.swing.JCheckBox();
         jCheckBoxEspresso = new javax.swing.JCheckBox();
         jCheckBoxCappuccino = new javax.swing.JCheckBox();
@@ -75,13 +76,14 @@ public class POS extends javax.swing.JFrame {
         jCheckBoxStrawberry = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jChocolate = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnTotal = new javax.swing.JButton();
         btnInvoice = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
         jbtnSave = new javax.swing.JButton();
-        jbtnRecord = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
+        btnDiscount = new javax.swing.JButton();
+        btnAddDiscount = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblTax1 = new javax.swing.JLabel();
         lblSubTotal1 = new javax.swing.JLabel();
@@ -89,7 +91,14 @@ public class POS extends javax.swing.JFrame {
         jSubTotal = new javax.swing.JTextField();
         jTax = new javax.swing.JTextField();
         jTotal = new javax.swing.JTextField();
+        jDiscount = new javax.swing.JTextField();
+        jDiscountTotal = new javax.swing.JTextField();
+        lblTotal2 = new javax.swing.JLabel();
+        lblTotal7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        btnExit = new javax.swing.JButton();
+        jbtnRecord = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
@@ -103,7 +112,7 @@ public class POS extends javax.swing.JFrame {
         textInvoice.setRows(5);
         jScrollPane1.setViewportView(textInvoice);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 280, 350));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 280, 420));
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
 
         jPanel1.setBackground(java.awt.SystemColor.controlLtHighlight);
@@ -133,9 +142,6 @@ public class POS extends javax.swing.JFrame {
 
         jStrawberry.setText("0");
         jPanel1.add(jStrawberry, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 60, -1));
-
-        jChocolate.setText("0");
-        jPanel1.add(jChocolate, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 60, -1));
 
         jCheckBoxChocolate.setBackground(new java.awt.Color(204, 153, 255));
         jCheckBoxChocolate.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
@@ -237,7 +243,10 @@ public class POS extends javax.swing.JFrame {
         jLabel4.setText("Quantity");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 60, -1));
 
-        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 320, 380));
+        jChocolate.setText("0");
+        jPanel1.add(jChocolate, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 60, -1));
+
+        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 320, 390));
 
         jPanel2.setBackground(java.awt.SystemColor.controlLtHighlight);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -260,27 +269,7 @@ public class POS extends javax.swing.JFrame {
                 btnInvoiceActionPerformed(evt);
             }
         });
-        jPanel2.add(btnInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 90, 30));
-
-        btnReset.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
-        btnReset.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 90, 30));
-
-        btnExit.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
-        btnExit.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        btnExit.setText("Exit");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 90, 30));
+        jPanel2.add(btnInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 90, 30));
 
         jbtnSave.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
         jbtnSave.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
@@ -292,17 +281,37 @@ public class POS extends javax.swing.JFrame {
         });
         jPanel2.add(jbtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 90, 30));
 
-        jbtnRecord.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
-        jbtnRecord.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        jbtnRecord.setText("Records");
-        jbtnRecord.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        btnReset.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnRecordActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtnRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 90, 30));
+        jPanel2.add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 90, 30));
 
-        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 230, 180));
+        btnDiscount.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        btnDiscount.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        btnDiscount.setText("Discount");
+        btnDiscount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiscountActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 90, 30));
+
+        btnAddDiscount.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        btnAddDiscount.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        btnAddDiscount.setText("Add Dis%");
+        btnAddDiscount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddDiscountActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAddDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 90, 30));
+
+        jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 230, 180));
 
         jPanel3.setBackground(java.awt.SystemColor.controlLtHighlight);
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -316,25 +325,55 @@ public class POS extends javax.swing.JFrame {
         jPanel3.add(lblSubTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 50, 20));
 
         lblTotal1.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        lblTotal1.setText("Total");
-        jPanel3.add(lblTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
+        lblTotal1.setText("After Discount");
+        jPanel3.add(lblTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 20));
         jPanel3.add(jSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 70, -1));
 
         jTax.setText("128");
-        jTax.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTaxActionPerformed(evt);
-            }
-        });
         jPanel3.add(jTax, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 70, -1));
         jPanel3.add(jTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 70, -1));
+        jPanel3.add(jDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 70, -1));
+        jPanel3.add(jDiscountTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 70, -1));
 
-        jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 210, 130));
+        lblTotal2.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        lblTotal2.setText("Discount");
+        jPanel3.add(lblTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 20));
+
+        lblTotal7.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        lblTotal7.setText("Total");
+        jPanel3.add(lblTotal7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
+
+        jPanel4.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 210, 230));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pointOfSales/Banner.jpg"))); // NOI18N
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 80));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 520));
+        jPanel5.setBackground(java.awt.SystemColor.controlLtHighlight);
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnExit.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        btnExit.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 90, 30));
+
+        jbtnRecord.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        jbtnRecord.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        jbtnRecord.setText("Records");
+        jbtnRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRecordActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jbtnRecord, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 30));
+
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 280, 60));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 570));
 
         pack();
         setLocationRelativeTo(null);
@@ -352,6 +391,7 @@ public class POS extends javax.swing.JFrame {
         Quantity[6] = Integer.parseInt(jJava.getText())* iStrawberry;
 	Quantity[7] = Integer.parseInt(jStrawberry.getText())* iVanilla;
 	Quantity[8] = Integer.parseInt(jChocolate.getText())* iChocolate;
+    //    Quantity[9] = Integer.parseInt(jQItem.getText())* jItemPrice;
         
         purchase[0] = Quantity[0] + Quantity[1]+ Quantity[2]+ Quantity[3] + Quantity[4];
         purchase[1] =  Quantity[5] + Quantity[6]+ Quantity[7]+ Quantity[8];
@@ -369,6 +409,7 @@ public class POS extends javax.swing.JFrame {
         String Total = String.format("%d", allTotal );
         jTotal.setText(Total);
         
+        
     }//GEN-LAST:event_btnTotalActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -382,11 +423,12 @@ public class POS extends javax.swing.JFrame {
         jVanilla.setText("0");
         jJava.setText("0");
         jStrawberry.setText("0");
-        jChocolate.setText("0");
         textInvoice.setEnabled(true);
         textInvoice.setText(null);
         jSubTotal.setText("0");
         jTotal.setText(null);
+        jDiscount.setText(null);
+        jDiscountTotal.setText(null);
         jCheckBoxEspresso.setSelected(false);
         jCheckBoxChocolate.setSelected(false);
         jCheckBoxCappuccino.setSelected(false);
@@ -425,8 +467,7 @@ public class POS extends javax.swing.JFrame {
                  
                            "Reference: " + ref + "\n\n" +
                                    
-                 	   "Date: " +Tdate.format(timer.getTime()) +
-	                   "\tTime: "+Time1.format(timer.getTime()) + "\n" +
+                 	   "Date: " +Tdate.format(timer.getTime()) + "\n" +"Time: "+Time1.format(timer.getTime()) + "\n" +
                            
                            "\n Espresso:\t\t" +jEspresso.getText() +
                            "\n Cappuccino:\t\t" +jCappuccino.getText() +
@@ -440,16 +481,16 @@ public class POS extends javax.swing.JFrame {
                            "\n -----------------------------------------------------------\n" +
 	                   " Tax:\t\t" +jTax.getText() +
 	                   "\n SubTotal:\t\t" +jSubTotal.getText() +
+                           "\n Discount:\t\t" +jDiscount.getText() +
                            "\n Total:\t\t" +jTotal.getText() +
+                           "\n Payment with Discount:\t\t" +jDiscountTotal.getText() +
+                
                            "\n ------------------------------------------------------------\n" +
 
 	                   "\n Keep visiting Coffee Beans.");
+  
         
     }//GEN-LAST:event_btnInvoiceActionPerformed
-
-    private void jTaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTaxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTaxActionPerformed
 
     private void jCheckBoxEspressoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxEspressoMouseClicked
         // TODO add your handling code here:
@@ -588,7 +629,7 @@ public class POS extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "saved");
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, e);
-        }
+        } 
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
     private void jbtnRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRecordActionPerformed
@@ -597,6 +638,37 @@ public class POS extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jbtnRecordActionPerformed
 
+    private void btnDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscountActionPerformed
+        // TODO add your handling code here:
+ 
+        try{
+            int DiscountAdded = Integer.parseInt(jDiscount.getText());
+            int TotalReceived = Integer.parseInt(jTotal.getText()); 
+            int subtraction = TotalReceived - DiscountAdded;  
+            String DisTotal = String.format("%d", subtraction );
+            jDiscountTotal.setText(DisTotal);
+         }
+         catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error: Select DISCOUNT button first");
+        }
+    }//GEN-LAST:event_btnDiscountActionPerformed
+
+    private void btnAddDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDiscountActionPerformed
+        // TODO add your handling code here:
+      try{
+            dObj.discount();
+            updateScreen();
+         }
+         catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error: Select DISCOUNT button first");
+        }
+    }//GEN-LAST:event_btnAddDiscountActionPerformed
+    
+    private void updateScreen(){
+        String value = Integer.toString(dObj.discounts);
+        jDiscount.setText(value);
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -633,6 +705,8 @@ public class POS extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddDiscount;
+    private javax.swing.JButton btnDiscount;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnInvoice;
     private javax.swing.JButton btnReset;
@@ -649,6 +723,8 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxStrawberry;
     private javax.swing.JCheckBox jCheckBoxVanilla;
     private javax.swing.JTextField jChocolate;
+    private javax.swing.JTextField jDiscount;
+    private javax.swing.JTextField jDiscountTotal;
     private javax.swing.JTextField jEspresso;
     private javax.swing.JTextField jIcedAmericano;
     private javax.swing.JTextField jIcedEspresso;
@@ -661,17 +737,20 @@ public class POS extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jStrawberry;
     private javax.swing.JTextField jSubTotal;
     private javax.swing.JTextField jTax;
-    private javax.swing.JTextField jTotal;
+    public javax.swing.JTextField jTotal;
     private javax.swing.JTextField jVanilla;
     private javax.swing.JButton jbtnRecord;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JLabel lblSubTotal1;
     private javax.swing.JLabel lblTax1;
     private javax.swing.JLabel lblTotal1;
+    private javax.swing.JLabel lblTotal2;
+    private javax.swing.JLabel lblTotal7;
     private javax.swing.JTextArea textInvoice;
     // End of variables declaration//GEN-END:variables
 }

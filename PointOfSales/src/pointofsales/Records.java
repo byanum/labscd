@@ -5,6 +5,7 @@
  */
 package pointofsales;
 
+
 import pointofsales.POS;
 import pointofsales.Database;
 import com.mysql.jdbc.Statement;
@@ -117,7 +118,8 @@ public class Records extends javax.swing.JFrame {
             Connection cn = Database.getConnection();
             Statement st = (Statement) cn.createStatement();
             String q = "Select * from dailyamount";
-            ResultSet s = st.executeQuery(q);
+            ResultSet s;
+            s = st.executeQuery(q);
 
             while(s.next()){
                 String data = s.getString("TotalCashReceived");

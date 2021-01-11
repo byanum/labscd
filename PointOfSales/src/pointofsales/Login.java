@@ -6,16 +6,7 @@ package pointofsales;
  * and open the template in the editor.
  */
 
-import org.xml.sax.Attributes;
-import com.sun.jdi.connect.spi.Connection;
-import java.awt.HeadlessException;
-import java.sql.DriverManager;
 import javax.swing.JOptionPane;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-
-
-
 /**
  *
  * @author Anum
@@ -25,9 +16,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form LoginGUI
      */
-    Connection con = null;
-    ResultSet rs = null;
-    PreparedStatement pst = null;
+   
     public Login() {
         initComponents();
     }
@@ -87,8 +76,8 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(LoginBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pointOfSales/iconfinder_user-alt_285645.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 190, 110));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pointOfSales/userIcon.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 190, 110));
         jPanel1.add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 130, -1));
 
         jCheckBoxShowPassword.setBackground(java.awt.Color.white);
